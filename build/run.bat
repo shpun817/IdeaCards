@@ -1,0 +1,1 @@
+java --module-path "%~dp0\javafx-sdk-12.0-2.2\lib" --add-modules javafx.controls,javafx.fxml -jar "%~dp0\IdeaCards.jar"
