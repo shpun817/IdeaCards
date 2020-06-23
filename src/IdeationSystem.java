@@ -20,6 +20,10 @@ public class IdeationSystem {
             return false;
     }
 
+    HashMap<String, CardPile> getCardPiles() {
+        return cardPiles;
+    }
+
     void reloadCardPiles() {
         cardPiles = Utility.loadPiles();
     }

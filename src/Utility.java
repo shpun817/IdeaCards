@@ -1,15 +1,12 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import net.
 
 public class Utility {
 
@@ -34,6 +31,39 @@ public class Utility {
                 return "Verb";
         }
         return null;
+    }
+
+    static void saveIdeationSystem(IdeationSystem is) {
+        if (is == null) return;
+        HashMap<String, List> map = new HashMap<>();
+        HashMap<String, CardPile> cardPiles = is.getCardPiles();
+        if (cardPiles == null) return;
+        for (String type : cardPiles.keySet()) {
+            ArrayList<String> words = new ArrayList<>();
+            ArrayList<Card> cards = cardPiles.get(type).getCards();
+            if (cards == null) continue;
+            for (Card card : cards) {
+                words.add(card.getWord());
+            }
+            map.put(type, words);
+        }
+        JSONObject obj = new JSONObject(map);
+        //System.out.println(obj.toString());
+
+        FileWriter out = null;
+        try {
+            out = new FileWriter(Utility.wordsPath);
+            out.write(obj.toJSONString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     static ArrayList<Card> loadCardsFromFile() {

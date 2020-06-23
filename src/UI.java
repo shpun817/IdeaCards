@@ -109,6 +109,7 @@ public class UI extends Application {
         wholeContainer.setPadding(new Insets(0,0,15,0));
         wholeContainer.getChildren().addAll(display, size, control);
 
+        stage.setOnCloseRequest(event -> Utility.saveIdeationSystem(ideationSystem));
 
         Scene scene = new Scene(wholeContainer, 750, 350);
         stage.setMinHeight(390);
