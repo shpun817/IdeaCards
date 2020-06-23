@@ -19,8 +19,11 @@ public class Utility {
         ArrayList<Card> cards = new ArrayList<>();
 
         cards.add(new Card("Adjective", "Happy"));
+        cards.add(new Card("Adjective", "Sad"));
         cards.add(new Card("Noun", "Dog"));
+        cards.add(new Card("Noun", "Cat"));
         cards.add(new Card("Verb", "Kills"));
+        cards.add(new Card("Verb", "Smiles"));
 
         HashMap<String, ArrayList<Card>> typeToCards = new HashMap<>();
         for (Card card : cards) {

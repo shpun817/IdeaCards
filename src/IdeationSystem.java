@@ -50,7 +50,7 @@ public class IdeationSystem {
         System.out.println(result);
     }
 
-    public static void main() {
+    public static void main(String[] args) {
         IdeationSystem is = new IdeationSystem();
         is.generateResult();
         is.showResult();
