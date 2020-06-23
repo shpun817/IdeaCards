@@ -13,22 +13,34 @@ import org.json.simple.parser.ParseException;
 
 public class Utility {
 
+    static String wordsPath = null;
+
+    static boolean needUpdatePath(String path) {
+        if (wordsPath != null && wordsPath.equals(path)) return false;
+        wordsPath = path;
+        return true;
+    }
+
     static String getTypeByHolder(char holder) {
         switch(holder) {
             case 'A':
+            case 'a':
                 return "Adjective";
             case 'N':
+            case 'n':
                 return "Noun";
             case 'V':
+            case 'v':
                 return "Verb";
         }
         return null;
     }
 
     static ArrayList<Card> loadCardsFromFile() {
+        if (wordsPath == null) return null;
         ArrayList<Card> cards = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("C:\\Users\\user\\Desktop\\" + "words.json"))
+        try (FileReader reader = new FileReader(wordsPath))
         {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
@@ -54,6 +66,7 @@ public class Utility {
 
     static HashMap<String, CardPile> loadPiles() {
         ArrayList<Card> cards = new Utility().loadCardsFromFile();
+        if (cards == null) return null;
 
         HashMap<String, ArrayList<Card>> typeToCards = new HashMap<>();
         for (Card card : cards) {
