@@ -24,6 +24,8 @@ public class UI extends Application {
 
     IdeationSystem ideationSystem = new IdeationSystem();
 
+    double fontSize = 20.0;
+
     void setIdeationSystem(IdeationSystem is) {
         ideationSystem = is;
     }
@@ -36,11 +38,25 @@ public class UI extends Application {
 
         //--------------Main Window-------------------------------
         HBox display = new HBox();
-        display.setMinHeight(320);
+        display.setMinHeight(255);
         display.setAlignment(Pos.CENTER);
         Text displayText = new Text();
         display.getChildren().addAll(displayText);
-        displayText.setFont(new Font(20));
+        displayText.setFont(new Font(fontSize));
+
+        HBox size = new HBox();
+        size.setSpacing(50);
+        size.setAlignment(Pos.CENTER);
+        Button shrinkBT = new Button();
+        shrinkBT.setText("-");
+        shrinkBT.setOnAction(event -> {
+            if (fontSize > 9)
+                displayText.setFont(new Font(--fontSize));
+        });
+        Button enlargeBT = new Button();
+        enlargeBT.setText("+");
+        enlargeBT.setOnAction(event -> displayText.setFont(new Font(++fontSize)));
+        size.getChildren().addAll(shrinkBT, enlargeBT);
 
         HBox control = new HBox();
         control.setMaxHeight(30);
@@ -89,8 +105,9 @@ public class UI extends Application {
         control.getChildren().addAll(pathText, pathTF, browseBT, addWordBT, changePatternBT, randomizeBT);
 
         VBox wholeContainer = new VBox();
+        wholeContainer.setSpacing(13);
         wholeContainer.setPadding(new Insets(0,0,15,0));
-        wholeContainer.getChildren().addAll(display, control);
+        wholeContainer.getChildren().addAll(display, size, control);
 
 
         Scene scene = new Scene(wholeContainer, 750, 350);
@@ -98,7 +115,7 @@ public class UI extends Application {
         stage.setMinWidth(770);
         scene.heightProperty().addListener( (InvalidationListener) observable -> {
             wholeContainer.setPrefHeight(scene.getHeight());
-            display.setPrefHeight(scene.getHeight()-control.getHeight());
+            display.setPrefHeight(scene.getHeight()-control.getHeight()-size.getHeight());
         });
         stage.setTitle("Idea Cards for Brainstorming!");
         stage.setScene(scene);
@@ -137,8 +154,12 @@ public class UI extends Application {
         addBT.setOnAction(event -> {
             if ( (String)typeInput.getValue() == null)
                 alertAndWait("Error", "Please select a type!", stage);
-            else
+            else {
+                String type = (String)typeInput.getValue();
+                String word = wordInput.getText();
+                ideationSystem.addWord(type, word);
                 stage.close();
+            }
         });
 
         wholeContainer.getChildren().addAll(typeBox, wordBox, addBT);
@@ -164,6 +185,7 @@ public class UI extends Application {
         rulesText.setWrappingWidth(175);
 
         TextField patternInput = new TextField();
+        patternInput.setText("ANV");
 
         Button changeBT = new Button();
         changeBT.setText("Change!");
