@@ -2,8 +2,10 @@
   <library name="json-simple-1.1.1">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/src/json-simple-1.1.1.jar!/" />
+      <root url="file://C:/Program Files/Java/javafx-sdk-12.0-2.2/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
+    <jarDirectory url="file://C:/Program Files/Java/javafx-sdk-12.0-2.2/lib" recursive="false" />
   </library>
 </component>

@@ -11,7 +11,7 @@ public class IdeationSystem {
     IdeationSystem() {
         cardPiles = Utility.loadPiles();
         pattern = "ANV";
-        result = null;
+        generateResult();
     }
 
     void setPattern(String p) {
@@ -52,8 +52,8 @@ public class IdeationSystem {
 
     public static void main(String[] args) {
         IdeationSystem is = new IdeationSystem();
-        is.generateResult();
-        is.showResult();
+        UI ui = new UI();
+        ui.callLaunch(args);
     }
 
 }
