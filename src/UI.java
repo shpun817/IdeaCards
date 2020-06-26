@@ -87,7 +87,12 @@ public class UI extends Application {
 
         Button addWordBT = new Button();
         addWordBT.setText("Add Word");
-        addWordBT.setOnAction(event -> showAddWordWindow(stage));
+        addWordBT.setOnAction(event -> {
+                    if (ideationSystem.cardPilesReady())
+                        showAddWordWindow(stage);
+                    else
+                        alertAndWait("Error", "Please load a compatible .json first.", stage);
+                });
 
         Button changePatternBT = new Button();
         changePatternBT.setText("Change Pattern");
